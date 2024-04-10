@@ -5,7 +5,7 @@ const ProjetSchema: Schema = new Schema({
   name: { type: String, required: true },
   summary: { type: String, required: true },
   description: { type: String, required: true },
-  projectLink: { type: String, required: true },
+  projectLink: { type: String, required: false },
   pictures: { type: [String], required: true },
   tags: { type: [TagClass], required: true },
 });
