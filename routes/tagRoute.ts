@@ -2,7 +2,45 @@ const express = require("express");
 const router = express.Router();
 const tagController = require("../controllers/tagController");
 
-router.post("/add", tagController.create_a_tag);
+/**
+ * @swagger
+ * /tags/all:
+ *   get:
+ *     summary: Récupère la liste de tous les tags
+ *     tags: [Tags]
+ *     responses:
+ *       200:
+ *         description: La liste des tags
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Tag'
+ */
 router.get("/all", tagController.list_all_tags);
+/**
+ * @swagger
+ * /tags/add:
+ *   post:
+ *     summary: Ajoute un nouveau tag
+ *     tags: [Tags]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Tag'
+ *     responses:
+ *       200:
+ *         description: Le tag a été créé avec succès
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Tag'
+ *       500:
+ *         description: Erreur lors de la création du tag
+ */
+router.post("/add", tagController.create_a_tag);
 
 export default router;
