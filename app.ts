@@ -3,7 +3,9 @@ import mongoose from "mongoose";
 import formationRouter from "./routes/formationRoute";
 import competenceRouter from "./routes/competenceRoute";
 import tagRouter from "./routes/tagRoute";
+import certificationRouter from "./routes/certificationRoute";
 import projetRouter from "./routes/projetRoute";
+
 
 const app = express();
 const port = 4444;
@@ -17,7 +19,9 @@ app.use(express.json());
 app.use("/formations", formationRouter);
 app.use("/competences", competenceRouter);
 app.use("/tags", tagRouter);
+app.use("/certifications", certificationRouter);
 app.use("/projets", projetRouter);
+
 
 app.listen(port, () => {
   console.log(`BackPortfolio app is running on port ${port}`);
