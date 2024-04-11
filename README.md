@@ -1,9 +1,11 @@
 ### Portfolio
 
-## Tâche actuelle: Faire le back-end
+## Tâche actuelle: =>
 
-# A faire
+# Reminder !!!!!!!
 
-- AdminModel / Route / Controller C et U
-- Ajouter le middleware pour l'authentification admin, pour pouvoir modifier/supprimer/créer.
-- Route /contact
+- Merge les branches swagger et CloudTest dans features
+- Demander Hiren si Postman peut requêter Mongo Atlas (envoyer des documents dessus)
+- Faire les routes/controllers UPDATE et DELETE pour tous
+- Faire l'admin + middleware et adapter tous les controllers pour utiliser le m
+- Faire le readme aussi un jour
