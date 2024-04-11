@@ -14,6 +14,11 @@ const uri =
   "mongodb+srv://ganafall9498:KpN9Y2x5OjItjDqq@cluster0.xtzcxbx.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
 const client = new MongoClient(uri, {});
 
+mongoose
+  .connect(uri, {})
+  .then(() => console.log("Connected to MongoDB Cloud"))
+  .catch((err) => console.error("Could not connect to MongoDB Cloud", err));
+
 async function main() {
   try {
     await client.connect();
@@ -32,13 +37,13 @@ async function main() {
     const result: Record<string, any> = {};
     for (const collectionName of collections) {
       const collection: Collection = database.collection(collectionName);
-      console.log("Collection sélectionnée :", collection.collectionName);
+      // console.log("Collection sélectionnée :", collection.collectionName);
 
       const data = await collection.find({}).toArray();
       result[collectionName] = data;
     }
 
-    console.log("Résultat de la recherche :", result);
+    // console.log("Résultat de la recherche :", result);
   } catch (error) {
     console.error("Erreur de connexion à la base de données :", error);
   }
@@ -55,6 +60,21 @@ app.use("/tags", tagRouter);
 app.use("/certifications", certificationRouter);
 app.use("/projets", projetRouter);
 
-app.listen(port, () => {
-  console.log(`BackPortfolio app is running on port ${port}`);
-});
+// app.listen(port, () => {
+//   console.log(`BackPortfolio app is running on port ${port}`);
+// });
+
+async function startServer() {
+  try {
+    await mongoose.connect(uri, {});
+    console.log("Connected to MongoDB");
+
+    app.listen(port, () => {
+      console.log(`BackPortfolio app is running on port ${port}`);
+    });
+  } catch (error) {
+    console.error("Failed to connect to MongoDB", error);
+  }
+}
+
+startServer();
