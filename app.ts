@@ -5,23 +5,55 @@ import competenceRouter from "./routes/competenceRoute";
 import tagRouter from "./routes/tagRoute";
 import certificationRouter from "./routes/certificationRoute";
 import projetRouter from "./routes/projetRoute";
-
+import { MongoClient, Db, Collection } from "mongodb";
 
 const app = express();
 const port = 4444;
 
-mongoose.connect("mongodb://127.0.0.1:27017/BackPortfolio2024");
+const uri =
+  "mongodb+srv://ganafall9498:KpN9Y2x5OjItjDqq@cluster0.xtzcxbx.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+const client = new MongoClient(uri, {});
+
+async function main() {
+  try {
+    await client.connect();
+    console.log("Connexion à la base de données réussie");
+
+    const database: Db = client.db("Portfolio2024");
+    console.log("Base de données sélectionnée :", database.databaseName);
+
+    const collections = [
+      "projets",
+      "formations",
+      "competences",
+      "certifications",
+    ];
+
+    const result: Record<string, any> = {};
+    for (const collectionName of collections) {
+      const collection: Collection = database.collection(collectionName);
+      console.log("Collection sélectionnée :", collection.collectionName);
+
+      const data = await collection.find({}).toArray();
+      result[collectionName] = data;
+    }
+
+    console.log("Résultat de la recherche :", result);
+  } catch (error) {
+    console.error("Erreur de connexion à la base de données :", error);
+  }
+}
+
+main().catch(console.error);
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-// Use the imported routers
 app.use("/formations", formationRouter);
 app.use("/competences", competenceRouter);
 app.use("/tags", tagRouter);
 app.use("/certifications", certificationRouter);
 app.use("/projets", projetRouter);
-
 
 app.listen(port, () => {
   console.log(`BackPortfolio app is running on port ${port}`);
