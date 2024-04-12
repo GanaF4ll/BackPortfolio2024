@@ -43,6 +43,35 @@ router.get("/all", certificationController.list_all_certifications);
  */
 router.post("/add", certificationController.create_a_certification);
 
+/**
+ * @swagger
+ * /update/{certificationId}:
+ *   put:
+ *     summary: Met à jour une certification existante
+ *     tags: [Certifications]
+ *     parameters:
+ *       - in: path
+ *         name: certificationId
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: L'ID de la certification à mettre à jour
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Certification'
+ *     responses:
+ *       200:
+ *         description: La certification a été mise à jour avec succès
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Certification'
+ *       400:
+ *         description: Erreur lors de la mise à jour de la certification
+ */
 router.put(
   "/update/:certificationId",
   certificationController.update_a_certification
