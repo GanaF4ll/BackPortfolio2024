@@ -30,3 +30,17 @@ export const list_all_certifications = async (req: Request, res: Response) => {
     res.status(500).json({ message: "Certification not found" });
   }
 };
+
+export const update_a_certification = async (req: Request, res: Response) => {
+  try {
+    const certification = await Certification.findByIdAndUpdate(
+      req.params.certificationId,
+      req.body,
+      { new: true }
+    );
+    res.status(200).json(certification);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Certification not updated" });
+  }
+};

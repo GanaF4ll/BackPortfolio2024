@@ -42,4 +42,10 @@ router.get("/all", certificationController.list_all_certifications);
  *         description: Erreur lors de la création de la certification
  */
 router.post("/add", certificationController.create_a_certification);
+
+router.put(
+  "/update/:certificationId",
+  certificationController.update_a_certification
+);
+
 export default router;
