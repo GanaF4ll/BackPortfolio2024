@@ -11,7 +11,8 @@ import { MongoClient, Db, Collection } from "mongodb";
 const app = express();
 const port = 4444;
 const uri =
-  "mongodb+srv://ganafall9498:KpN9Y2x5OjItjDqq@cluster0.xtzcxbx.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+  "mongodb+srv://ganafall9498:KpN9Y2x5OjItjDqq@cluster0.xtzcxbx.mongodb.net/Portfolio2024?retryWrites=true&w=majority&appName=Cluster0";
+
 const client = new MongoClient(uri, {});
 mongoose
   .connect(uri, {})

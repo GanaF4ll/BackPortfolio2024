@@ -13,7 +13,11 @@ export const add_competence = async (
       color: req.body.color,
     });
     const competence = await newCompetence.save();
-    res.status(201).json({ message: `Competence created: ${competence.name}` });
+    res
+      .status(201)
+      .json({
+        message: `Competence created: ${competence.name}, ID: ${competence.id}`,
+      });
   } catch (error: any) {
     console.error(error);
     res
@@ -32,5 +36,37 @@ export const list_all_competences = async (
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: "Competence not found" });
+  }
+};
+
+export const update_a_competence = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
+  try {
+    const competence = await Competence.findByIdAndUpdate(
+      req.params.competenceId,
+      req.body,
+      { new: true }
+    );
+    res.status(200).json(competence);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Competence not updated" });
+  }
+};
+
+export const delete_a_competence = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
+  try {
+    const competence = await Competence.findByIdAndDelete(
+      req.params.competenceId
+    );
+    res.status(200).json({ message: "Competence deleted : ", competence });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Competence not deleted" });
   }
 };

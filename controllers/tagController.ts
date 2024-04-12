@@ -27,3 +27,15 @@ exports.list_all_tags = async (req: Request, res: Response) => {
     res.status(500).json({ message: "Tag not found" });
   }
 };
+
+exports.update_a_tag = async (req: Request, res: Response) => {
+  try {
+    const tag = await Tag.findByIdAndUpdate(req.params.tagId, req.body, {
+      new: true,
+    });
+    res.status(200).json(tag);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Tag not updated" });
+  }
+};

@@ -42,4 +42,55 @@ router.get("/all", projetController.list_all_projets);
  *         description: Erreur lors de la création du projet
  */
 router.post("/add", projetController.add_projet);
+
+/**
+ * @swagger
+ * /update/{projetId}:
+ *   put:
+ *     summary: Met à jour un projet existant
+ *     tags: [Projets]
+ *     parameters:
+ *       - in: path
+ *         name: projetId
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: L'ID du projet à mettre à jour
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Projet'
+ *     responses:
+ *       200:
+ *         description: Le projet a été mis à jour avec succès
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Projet'
+ *       500:
+ *         description: Erreur lors de la mise à jour du projet
+ */
+router.put("/update/:projetId", projetController.update_a_projet);
+/**
+ * @swagger
+ * /delete/{projetId}:
+ *   delete:
+ *     summary: Supprime un projet existant
+ *     tags: [Projets]
+ *     parameters:
+ *       - in: path
+ *         name: projetId
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: L'ID du projet à supprimer
+ *     responses:
+ *       200:
+ *         description: Le projet a été supprimé avec succès
+ *       500:
+ *         description: Erreur lors de la suppression du projet
+ */
+router.delete("/delete/:projetId", projetController.delete_a_projet);
 export default router;

@@ -9,3 +9,5 @@
 - Faire les routes/controllers UPDATE et DELETE pour tous
 - Faire l'admin + middleware et adapter tous les controllers pour utiliser le m
 - Faire le readme aussi un jour
+
+# Mettre l'uri dans le .env

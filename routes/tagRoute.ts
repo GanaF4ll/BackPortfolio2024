@@ -43,4 +43,35 @@ router.get("/all", tagController.list_all_tags);
  */
 router.post("/add", tagController.create_a_tag);
 
+/**
+ * @swagger
+ * /update/{tagId}:
+ *   put:
+ *     summary: Met à jour un tag existant
+ *     tags: [Tags]
+ *     parameters:
+ *       - in: path
+ *         name: tagId
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: L'ID du tag à mettre à jour
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Tag'
+ *     responses:
+ *       200:
+ *         description: Le tag a été mis à jour avec succès
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Tag'
+ *       500:
+ *         description: Erreur lors de la mise à jour du tag
+ */
+router.put("/update/:tagId", tagController.update_a_tag);
+
 export default router;
