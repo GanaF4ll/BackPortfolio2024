@@ -14,7 +14,9 @@ export const create_a_certification = async (
     const certification = await newCertification.save();
     res
       .status(201)
-      .json({ message: `Certification created: ${certification.titre}` });
+      .json({
+        message: `Certification created: ${certification.titre}, ID: ${certification.id}`,
+      });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Certification not created" });
@@ -38,9 +40,23 @@ export const update_a_certification = async (req: Request, res: Response) => {
       req.body,
       { new: true }
     );
-    res.status(200).json(certification);
+    res.status(200).json({ message: "Certification updated", certification });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Certification not updated" });
+  }
+};
+
+export const delete_a_certification = async (req: Request, res: Response) => {
+  try {
+    const certification = await Certification.findByIdAndDelete(
+      req.params.certificationId
+    );
+    res
+      .status(200)
+      .json({ message: "Certification deleted : ", certification });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Certification not deleted" });
   }
 };

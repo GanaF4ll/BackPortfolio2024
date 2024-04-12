@@ -77,4 +77,28 @@ router.put(
   certificationController.update_a_certification
 );
 
+/**
+ * @swagger
+ * /delete/{certificationId}:
+ *   delete:
+ *     summary: Supprime une certification existante
+ *     tags: [Certifications]
+ *     parameters:
+ *       - in: path
+ *         name: certificationId
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: L'ID de la certification à supprimer
+ *     responses:
+ *       200:
+ *         description: La certification a été supprimée avec succès
+ *       400:
+ *         description: Erreur lors de la suppression de la certification
+ */
+router.delete(
+  "/delete/:certificationId",
+  certificationController.delete_a_certification
+);
+
 export default router;
