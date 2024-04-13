@@ -1,6 +1,7 @@
 import express, { Router } from "express";
 import * as formationController from "../controllers/formationController";
 const router: Router = express.Router();
+import { checkToken } from "../middlewares/jwtMiddleware";
 
 /**
  * @swagger
@@ -23,6 +24,8 @@ router.get("/all", formationController.list_all_formations);
  * @swagger
  * /formations/add:
  *   post:
+ *    security:
+ *      - bearerAuth: []
  *     summary: Ajoute une nouvelle formation
  *     tags: [Formations]
  *     requestBody:
@@ -41,12 +44,14 @@ router.get("/all", formationController.list_all_formations);
  *       500:
  *         description: Erreur lors de la création de la formation
  */
-router.post("/add", formationController.add_formation);
+router.post("/add", checkToken, formationController.add_formation);
 
 /**
  * @swagger
  * /update/{formationId}:
  *   put:
+ *    security:
+ *     - bearerAuth: []
  *     summary: Met à jour une formation existante
  *     tags: [Formations]
  *     parameters:
@@ -72,11 +77,17 @@ router.post("/add", formationController.add_formation);
  *       500:
  *         description: Erreur lors de la mise à jour de la formation
  */
-router.put("/update/:formationId", formationController.update_a_formation);
+router.put(
+  "/update/:formationId",
+  checkToken,
+  formationController.update_a_formation
+);
 /**
  * @swagger
  * /delete/{formationId}:
  *   delete:
+ *     security:
+ *      - bearerAuth: []
  *     summary: Supprime une formation existante
  *     tags: [Formations]
  *     parameters:
@@ -92,5 +103,9 @@ router.put("/update/:formationId", formationController.update_a_formation);
  *       500:
  *         description: Erreur lors de la suppression de la formation
  */
-router.delete("/delete/:formationId", formationController.delete_a_formation);
+router.delete(
+  "/delete/:formationId",
+  checkToken,
+  formationController.delete_a_formation
+);
 export default router;
