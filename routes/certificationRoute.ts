@@ -24,7 +24,7 @@ import { checkToken } from "../middlewares/jwtMiddleware";
  *       401:
  *         description: Non autorisé
  */
-router.get("/all", checkToken, certificationController.list_all_certifications);
+router.get("/all", certificationController.list_all_certifications);
 
 /**
  * @swagger
