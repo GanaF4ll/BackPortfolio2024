@@ -8,6 +8,8 @@ import { checkToken } from "../middlewares/jwtMiddleware";
  * @swagger
  * /certifications/all:
  *   get:
+ *     security:
+ *       - bearerAuth: []
  *     summary: Récupère la liste de toutes les certifications
  *     tags: [Certifications]
  *     responses:
@@ -19,12 +21,17 @@ import { checkToken } from "../middlewares/jwtMiddleware";
  *               type: array
  *               items:
  *                 $ref: '#/components/schemas/Certification'
+ *       401:
+ *         description: Non autorisé
  */
 router.get("/all", checkToken, certificationController.list_all_certifications);
+
 /**
  * @swagger
  * /certifications/add:
  *   post:
+ *     security:
+ *       - bearerAuth: []
  *     summary: Ajoute une nouvelle certification
  *     tags: [Certifications]
  *     requestBody:
@@ -40,6 +47,8 @@ router.get("/all", checkToken, certificationController.list_all_certifications);
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/Certification'
+ *       401:
+ *         description: Non autorisé
  *       500:
  *         description: Erreur lors de la création de la certification
  */
@@ -49,6 +58,8 @@ router.post("/add", checkToken, certificationController.create_a_certification);
  * @swagger
  * /update/{certificationId}:
  *   put:
+ *     security:
+ *       - bearerAuth: []
  *     summary: Met à jour une certification existante
  *     tags: [Certifications]
  *     parameters:
@@ -71,6 +82,8 @@ router.post("/add", checkToken, certificationController.create_a_certification);
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/Certification'
+ *       401:
+ *         description: Non autorisé
  *       400:
  *         description: Erreur lors de la mise à jour de la certification
  */
@@ -84,6 +97,8 @@ router.put(
  * @swagger
  * /delete/{certificationId}:
  *   delete:
+ *     security:
+ *       - bearerAuth: []
  *     summary: Supprime une certification existante
  *     tags: [Certifications]
  *     parameters:
@@ -96,6 +111,8 @@ router.put(
  *     responses:
  *       200:
  *         description: La certification a été supprimée avec succès
+ *       401:
+ *         description: Non autorisé
  *       400:
  *         description: Erreur lors de la suppression de la certification
  */
