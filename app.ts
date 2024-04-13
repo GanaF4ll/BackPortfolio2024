@@ -8,12 +8,14 @@ import projetRouter from "./routes/projetRoute";
 import swaggerUi from "swagger-ui-express";
 import swaggerSpec from "./swagger/swaggerConfig";
 import { MongoClient, Db, Collection } from "mongodb";
+
+require("dotenv").config({ path: "./.env" });
+
 const app = express();
 const port = 4444;
-const uri =
-  "mongodb+srv://ganafall9498:KpN9Y2x5OjItjDqq@cluster0.xtzcxbx.mongodb.net/Portfolio2024?retryWrites=true&w=majority&appName=Cluster0";
-
+const uri = process.env.URI as string;
 const client = new MongoClient(uri, {});
+
 mongoose
   .connect(uri, {})
   .then(() => console.log("Connected to MongoDB Cloud"))
