@@ -1,6 +1,7 @@
 import express, { Router } from "express";
 import * as certificationController from "../controllers/certificationController";
 const router: Router = express.Router();
+import { tokenValidator } from "../middlewares/jwtMiddleware";
 
 /**
  * @swagger
@@ -18,7 +19,11 @@ const router: Router = express.Router();
  *               items:
  *                 $ref: '#/components/schemas/Certification'
  */
-router.get("/all", certificationController.list_all_certifications);
+router.get(
+  "/all",
+  tokenValidator,
+  certificationController.list_all_certifications
+);
 /**
  * @swagger
  * /certifications/add:

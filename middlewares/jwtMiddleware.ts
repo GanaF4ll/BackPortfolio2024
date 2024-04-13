@@ -3,9 +3,10 @@ const jwt = require("jsonwebtoken");
 require("dotenv").config();
 
 export const tokenValidator = async (req: any, res: any, next: any) => {
-  const token = req.header("Authorization");
+  const token = req.header("Authorization").split(" ")[1];
+  console.log("Token extrait :", token);
   if (!token) {
-    return res.status(401).send("Access Denied");
+    return res.status(401).send(process.env.TOKEN_SECRET);
   }
 
   try {
@@ -13,6 +14,7 @@ export const tokenValidator = async (req: any, res: any, next: any) => {
     req.admin = verified;
     next();
   } catch (err) {
-    res.status(400).send("Invalid Token");
+    console.error("Erreur de validation du token :", err);
+    res.status(400).send(process.env.TOKEN_SECRET);
   }
 };

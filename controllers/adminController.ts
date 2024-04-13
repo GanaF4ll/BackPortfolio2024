@@ -40,7 +40,7 @@ export const login = async (req: Request, res: Response) => {
     };
 
     const token = jwt.sign(adminData, process.env.JWT_KEY as string, {
-      expiresIn: "48h", // Token duration
+      expiresIn: "48h",
     });
 
     res.status(200).json({ token });
