@@ -1,7 +1,8 @@
 import express, { Router } from "express";
 import * as certificationController from "../controllers/certificationController";
 const router: Router = express.Router();
-import { tokenValidator } from "../middlewares/jwtMiddleware";
+// import * as adminController from "../controllers/adminController";
+import { checkToken } from "../middlewares/jwtMiddleware";
 
 /**
  * @swagger
@@ -19,11 +20,7 @@ import { tokenValidator } from "../middlewares/jwtMiddleware";
  *               items:
  *                 $ref: '#/components/schemas/Certification'
  */
-router.get(
-  "/all",
-  tokenValidator,
-  certificationController.list_all_certifications
-);
+router.get("/all", checkToken, certificationController.list_all_certifications);
 /**
  * @swagger
  * /certifications/add:
@@ -46,7 +43,7 @@ router.get(
  *       500:
  *         description: Erreur lors de la création de la certification
  */
-router.post("/add", certificationController.create_a_certification);
+router.post("/add", checkToken, certificationController.create_a_certification);
 
 /**
  * @swagger
@@ -79,6 +76,7 @@ router.post("/add", certificationController.create_a_certification);
  */
 router.put(
   "/update/:certificationId",
+  checkToken,
   certificationController.update_a_certification
 );
 
@@ -103,6 +101,7 @@ router.put(
  */
 router.delete(
   "/delete/:certificationId",
+  checkToken,
   certificationController.delete_a_certification
 );
 

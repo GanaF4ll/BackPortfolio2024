@@ -39,7 +39,7 @@ export const login = async (req: Request, res: Response) => {
       email: admin.email,
     };
 
-    const token = jwt.sign(adminData, process.env.JWT_KEY as string, {
+    const token = jwt.sign(adminData, process.env.TOKEN_SECRET as string, {
       expiresIn: "48h",
     });
 

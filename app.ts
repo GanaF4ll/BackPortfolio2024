@@ -41,7 +41,7 @@ async function main() {
       result[collectionName] = data;
     }
 
-    console.log("Résultat de la recherche :", result);
+    // console.log("Résultat de la recherche :", result);
   } catch (error) {
     console.error("Erreur de connexion à la base de données :", error);
   }
