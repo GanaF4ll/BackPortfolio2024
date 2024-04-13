@@ -1,6 +1,7 @@
 import express, { Router } from "express";
 import * as competenceController from "../controllers/competenceController";
 const router: Router = express.Router();
+import { checkToken } from "../middlewares/jwtMiddleware";
 
 /**
  * @swagger
@@ -17,12 +18,17 @@ const router: Router = express.Router();
  *               type: array
  *               items:
  *                 $ref: '#/components/schemas/Competence'
+ *       401:
+ *         description: Non autorisé
  */
 router.get("/all", competenceController.list_all_competences);
+
 /**
  * @swagger
  * /competences/add:
  *   post:
+ *     security:
+ *       - bearerAuth: []
  *     summary: Ajoute une nouvelle compétence
  *     tags: [Competences]
  *     requestBody:
@@ -38,15 +44,19 @@ router.get("/all", competenceController.list_all_competences);
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/Competence'
+ *       401:
+ *         description: Non autorisé
  *       500:
  *         description: Erreur lors de la création de la compétence
  */
-router.post("/add", competenceController.add_competence);
+router.post("/add", checkToken, competenceController.add_competence);
 
 /**
  * @swagger
  * /update/{competenceId}:
  *   put:
+ *     security:
+ *       - bearerAuth: []
  *     summary: Met à jour une compétence existante
  *     tags: [Competences]
  *     parameters:
@@ -69,15 +79,23 @@ router.post("/add", competenceController.add_competence);
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/Competence'
+ *       401:
+ *         description: Non autorisé
  *       500:
  *         description: Erreur lors de la mise à jour de la compétence
  */
-router.put("/update/:competenceId", competenceController.update_a_competence);
+router.put(
+  "/update/:competenceId",
+  checkToken,
+  competenceController.update_a_competence
+);
 
 /**
  * @swagger
  * /delete/{competenceId}:
  *   delete:
+ *     security:
+ *       - bearerAuth: []
  *     summary: Supprime une compétence existante
  *     tags: [Competences]
  *     parameters:
@@ -90,11 +108,14 @@ router.put("/update/:competenceId", competenceController.update_a_competence);
  *     responses:
  *       200:
  *         description: La compétence a été supprimée avec succès
+ *       401:
+ *         description: Non autorisé
  *       500:
  *         description: Erreur lors de la suppression de la compétence
  */
 router.delete(
   "/delete/:competenceId",
+  checkToken,
   competenceController.delete_a_competence
 );
 

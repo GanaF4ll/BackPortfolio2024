@@ -4,16 +4,19 @@ import formationRouter from "./routes/formationRoute";
 import competenceRouter from "./routes/competenceRoute";
 import tagRouter from "./routes/tagRoute";
 import certificationRouter from "./routes/certificationRoute";
+import adminRouter from "./routes/adminRoute";
 import projetRouter from "./routes/projetRoute";
 import swaggerUi from "swagger-ui-express";
 import swaggerSpec from "./swagger/swaggerConfig";
 import { MongoClient, Db, Collection } from "mongodb";
+
+require("dotenv").config({ path: "./.env" });
+
 const app = express();
 const port = 4444;
-const uri =
-  "mongodb+srv://ganafall9498:KpN9Y2x5OjItjDqq@cluster0.xtzcxbx.mongodb.net/Portfolio2024?retryWrites=true&w=majority&appName=Cluster0";
-
+const uri = process.env.URI as string;
 const client = new MongoClient(uri, {});
+
 mongoose
   .connect(uri, {})
   .then(() => console.log("Connected to MongoDB Cloud"))
@@ -38,7 +41,7 @@ async function main() {
       result[collectionName] = data;
     }
 
-    console.log("Résultat de la recherche :", result);
+    // console.log("Résultat de la recherche :", result);
   } catch (error) {
     console.error("Erreur de connexion à la base de données :", error);
   }
@@ -52,6 +55,7 @@ app.use("/tags", tagRouter);
 app.use("/certifications", certificationRouter);
 export default swaggerSpec;
 app.use("/projets", projetRouter);
+app.use("/admin", adminRouter);
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 // app.listen(port, () => {

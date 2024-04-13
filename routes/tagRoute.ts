@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const tagController = require("../controllers/tagController");
+import { checkToken } from "../middlewares/jwtMiddleware";
 
 /**
  * @swagger
@@ -19,10 +20,13 @@ const tagController = require("../controllers/tagController");
  *                 $ref: '#/components/schemas/Tag'
  */
 router.get("/all", tagController.list_all_tags);
+
 /**
  * @swagger
  * /tags/add:
  *   post:
+ *     security:
+ *       - bearerAuth: []
  *     summary: Ajoute un nouveau tag
  *     tags: [Tags]
  *     requestBody:
@@ -41,12 +45,14 @@ router.get("/all", tagController.list_all_tags);
  *       500:
  *         description: Erreur lors de la création du tag
  */
-router.post("/add", tagController.create_a_tag);
+router.post("/add", checkToken, tagController.create_a_tag);
 
 /**
  * @swagger
- * /update/{tagId}:
+ * /tags/update/{tagId}:
  *   put:
+ *     security:
+ *       - bearerAuth: []
  *     summary: Met à jour un tag existant
  *     tags: [Tags]
  *     parameters:
@@ -72,6 +78,6 @@ router.post("/add", tagController.create_a_tag);
  *       500:
  *         description: Erreur lors de la mise à jour du tag
  */
-router.put("/update/:tagId", tagController.update_a_tag);
+router.put("/update/:tagId", checkToken, tagController.update_a_tag);
 
 export default router;

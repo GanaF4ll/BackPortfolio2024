@@ -1,6 +1,7 @@
 import express, { Router } from "express";
 import * as projetController from "../controllers/projetController";
 const router: Router = express.Router();
+import { checkToken } from "../middlewares/jwtMiddleware";
 
 /**
  * @swagger
@@ -17,12 +18,17 @@ const router: Router = express.Router();
  *               type: array
  *               items:
  *                 $ref: '#/components/schemas/Projet'
+ *       401:
+ *         description: Non autorisé
  */
 router.get("/all", projetController.list_all_projets);
+
 /**
  * @swagger
  * /projets/add:
  *   post:
+ *     security:
+ *       - bearerAuth: []
  *     summary: Ajoute un nouveau projet
  *     tags: [Projets]
  *     requestBody:
@@ -38,15 +44,19 @@ router.get("/all", projetController.list_all_projets);
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/Projet'
+ *       401:
+ *         description: Non autorisé
  *       500:
  *         description: Erreur lors de la création du projet
  */
-router.post("/add", projetController.add_projet);
+router.post("/add", checkToken, projetController.add_projet);
 
 /**
  * @swagger
- * /update/{projetId}:
+ * /projets/update/{projetId}:
  *   put:
+ *     security:
+ *       - bearerAuth: []
  *     summary: Met à jour un projet existant
  *     tags: [Projets]
  *     parameters:
@@ -69,14 +79,19 @@ router.post("/add", projetController.add_projet);
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/Projet'
+ *       401:
+ *         description: Non autorisé
  *       500:
  *         description: Erreur lors de la mise à jour du projet
  */
-router.put("/update/:projetId", projetController.update_a_projet);
+router.put("/update/:projetId", checkToken, projetController.update_a_projet);
+
 /**
  * @swagger
- * /delete/{projetId}:
+ * /projets/delete/{projetId}:
  *   delete:
+ *     security:
+ *       - bearerAuth: []
  *     summary: Supprime un projet existant
  *     tags: [Projets]
  *     parameters:
@@ -89,8 +104,15 @@ router.put("/update/:projetId", projetController.update_a_projet);
  *     responses:
  *       200:
  *         description: Le projet a été supprimé avec succès
+ *       401:
+ *         description: Non autorisé
  *       500:
  *         description: Erreur lors de la suppression du projet
  */
-router.delete("/delete/:projetId", projetController.delete_a_projet);
+router.delete(
+  "/delete/:projetId",
+  checkToken,
+  projetController.delete_a_projet
+);
+
 export default router;
