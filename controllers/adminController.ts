@@ -4,23 +4,23 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 require("dotenv").config({ path: "../.env" });
 
-export const register = async (req: Request, res: Response) => {
-  const { email, password } = req.body;
-  const hashedPassword = await bcrypt.hash(password, 10);
-  const admin = new Admin({
-    email,
-    password: hashedPassword,
-  });
+// export const register = async (req: Request, res: Response) => {
+//   const { email, password } = req.body;
+//   const hashedPassword = await bcrypt.hash(password, 10);
+//   const admin = new Admin({
+//     email,
+//     password: hashedPassword,
+//   });
 
-  try {
-    const savedAdmin = await admin.save();
-    res.status(201).json({ message: `admin created: ${admin.email}` });
-    res.send(savedAdmin);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: "admin creation failed" });
-  }
-};
+//   try {
+//     const savedAdmin = await admin.save();
+//     res.status(201).json({ message: `admin created: ${admin.email}` });
+//     res.send(savedAdmin);
+//   } catch (error) {
+//     console.error(error);
+//     res.status(500).json({ message: "admin creation failed" });
+//   }
+// };
 
 export const login = async (req: Request, res: Response) => {
   try {
