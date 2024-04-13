@@ -1,11 +1,26 @@
 import express, { Router } from "express";
 import * as formationController from "../controllers/formationController";
-const router: Router = express.Router();
 import { checkToken } from "../middlewares/jwtMiddleware";
+
+const router: Router = express.Router();
 
 /**
  * @swagger
- * /formations/all:
+ * components:
+ *   schemas:
+ *     Formation:
+ *       type: object
+ *       properties:
+ *         // Ajoutez ici les propriétés de la formation (exemple)
+ *         title:
+ *           type: string
+ *         description:
+ *           type: string
+ */
+
+/**
+ * @swagger
+ * /api/formations/all:
  *   get:
  *     summary: Récupère la liste de toutes les formations
  *     tags: [Formations]
@@ -18,14 +33,18 @@ import { checkToken } from "../middlewares/jwtMiddleware";
  *               type: array
  *               items:
  *                 $ref: '#/components/schemas/Formation'
+ *       401:
+ *         description: Non autorisé
  */
+
 router.get("/all", formationController.list_all_formations);
+
 /**
  * @swagger
- * /formations/add:
+ * /api/formations/add:
  *   post:
- *    security:
- *      - bearerAuth: []
+ *     security:
+ *       - bearerAuth: []
  *     summary: Ajoute une nouvelle formation
  *     tags: [Formations]
  *     requestBody:
@@ -41,17 +60,20 @@ router.get("/all", formationController.list_all_formations);
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/Formation'
+ *       401:
+ *         description: Non autorisé
  *       500:
  *         description: Erreur lors de la création de la formation
  */
+
 router.post("/add", checkToken, formationController.add_formation);
 
 /**
  * @swagger
  * /update/{formationId}:
  *   put:
- *    security:
- *     - bearerAuth: []
+ *     security:
+ *       - bearerAuth: []
  *     summary: Met à jour une formation existante
  *     tags: [Formations]
  *     parameters:
@@ -74,17 +96,21 @@ router.post("/add", checkToken, formationController.add_formation);
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/Formation'
- *       500:
+ *       401:
+ *         description: Non autorisé
+ *       400:
  *         description: Erreur lors de la mise à jour de la formation
  */
+
 router.put(
   "/update/:formationId",
   checkToken,
   formationController.update_a_formation
 );
+
 /**
  * @swagger
- * /delete/{formationId}:
+ *  /api/formations/delete/{formationId}:
  *   delete:
  *     security:
  *      - bearerAuth: []
@@ -100,12 +126,16 @@ router.put(
  *     responses:
  *       200:
  *         description: La formation a été supprimée avec succès
+ *       401:
+ *         description: Non autorisé
  *       500:
  *         description: Erreur lors de la suppression de la formation
  */
+
 router.delete(
   "/delete/:formationId",
   checkToken,
   formationController.delete_a_formation
 );
+
 export default router;
