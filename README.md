@@ -31,15 +31,16 @@ The API has several endpoints for managing different aspects of a portfolio:
 
 Each endpoint supports standard CRUD operations.
 
+## Hosting
+
+- https://gf-portfolio-backend.onrender.com/
+
 ## Built With
 
 - [Node.js](https://nodejs.org/)
 - [TypeScript](https://www.typescriptlang.org/)
 - [Express](https://expressjs.com/)
 
-## License
-
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
 
 <!-- FRANCAIS -->
 
@@ -82,6 +83,6 @@ Chaque point de terminaison prend en charge les opérations CRUD standard.
 - [TypeScript](https://www.typescriptlang.org/)
 - [Express](https://expressjs.com/)
 
-## Licence
+## Hébergement
 
-Ce projet est sous licence MIT - voir le fichier [LICENSE.md](LICENSE.md) pour plus de détails
+https://gf-portfolio-backend.onrender.com/
