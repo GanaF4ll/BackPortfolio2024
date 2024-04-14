@@ -56,8 +56,12 @@ const app = (0, express_1.default)();
 const port = 4444;
 const uri = process.env.URI;
 const client = new mongodb_1.MongoClient(uri, {});
+const cors = require("cors");
 
 // Add CORS headers
+
+app.use(cors());
+
 app.use((req, res, next) => {
   const allowedOrigins = [
     "http://localhost:4200",
