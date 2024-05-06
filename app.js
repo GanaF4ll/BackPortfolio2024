@@ -53,7 +53,7 @@ const swaggerConfig_1 = __importDefault(require("./swagger/swaggerConfig"));
 const mongodb_1 = require("mongodb");
 require("dotenv").config({ path: "./.env" });
 const app = (0, express_1.default)();
-const port = 4444;
+const PORT = process.env.PORT || 3000;
 const uri = process.env.URI;
 const client = new mongodb_1.MongoClient(uri, {});
 const cors = require("cors");
