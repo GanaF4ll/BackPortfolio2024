@@ -13,7 +13,7 @@ import { MongoClient, Db, Collection } from "mongodb";
 require("dotenv").config({ path: "./.env" });
 
 const app = express();
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 3000;
 const uri = process.env.URI as string;
 const client = new MongoClient(uri, {});
 
@@ -65,8 +65,8 @@ async function startServer() {
   try {
     await mongoose.connect(uri, {});
     console.log("Connected to MongoDB");
-    app.listen(port, () => {
-      console.log(`BackPortfolio app is running on port ${port}`);
+    app.listen(PORT, () => {
+      console.log(`BackPortfolio app is running on port ${PORT}`);
     });
   } catch (error) {
     console.error("Failed to connect to MongoDB", error);
