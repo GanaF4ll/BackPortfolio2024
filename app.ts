@@ -13,7 +13,7 @@ import { MongoClient, Db, Collection } from "mongodb";
 require("dotenv").config({ path: "./.env" });
 
 const app = express();
-const port = 4444;
+const PORT = process.env.PORT;
 const uri = process.env.URI as string;
 const client = new MongoClient(uri, {});
 
