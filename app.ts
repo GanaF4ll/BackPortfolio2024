@@ -1,4 +1,4 @@
-import express from "express";
+import express, { Request, Response, NextFunction } from "express";
 import mongoose from "mongoose";
 import formationRouter from "./routes/formationRoute";
 import competenceRouter from "./routes/competenceRoute";
