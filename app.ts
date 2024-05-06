@@ -9,6 +9,7 @@ import projetRouter from "./routes/projetRoute";
 import swaggerUi from "swagger-ui-express";
 import swaggerSpec from "./swagger/swaggerConfig";
 import { MongoClient, Db, Collection } from "mongodb";
+import cors from "cors";
 
 require("dotenv").config({ path: "./.env" });
 
@@ -46,6 +47,29 @@ async function main() {
     console.error("Erreur de connexion à la base de données :", error);
   }
 }
+
+app.use(cors());
+
+app.use((req: Request, res: Response, next: NextFunction) => {
+  const allowedOrigins = [
+    "http://localhost:4200",
+    "https://gana-fall.web.app/",
+  ];
+  const origin = req.headers.origin as string;
+  if (allowedOrigins.includes(origin)) {
+    res.setHeader("Access-Control-Allow-Origin", origin);
+  }
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept"
+  );
+  res.header(
+    "Access-Control-Allow-Methods",
+    "GET, POST, OPTIONS, PUT, PATCH, DELETE"
+  );
+  res.header("Access-Control-Allow-Credentials", "true");
+  next();
+});
 main().catch(console.error);
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
